@@ -63,5 +63,10 @@ namespace Kata.Checkout.Services
     {
       return _itemQuantities.Select(c => new CartItem { Sku = c.Key, Quantity = c.Value });
     }
+
+    public void Clear()
+    {
+      _itemQuantities.Clear();
+    }
   }
 }

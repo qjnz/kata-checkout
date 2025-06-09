@@ -11,5 +11,7 @@ namespace Kata.Checkout.Services
     IEnumerable<Item> GetAvailableItems();
 
     IEnumerable<CartItem> GetCartItems();
+
+    void Clear();
   }
 }

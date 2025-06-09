@@ -47,5 +47,12 @@ namespace Kata.Checkout.Api.Controllers
 			var total = _checkoutService.GetTotalPrice();
 			return Ok(new { items = cartItems, total });
 		}
+
+		[HttpPost("clear")]
+		public ActionResult ClearCart()
+		{
+			 _checkoutService.Clear();
+			return Ok(new { message = "Cart cleared" });
+		}
 	}
 }
