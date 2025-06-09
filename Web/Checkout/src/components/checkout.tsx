@@ -73,7 +73,7 @@ export default function Checkout() {
   };
 
   const formatPrice = (price: number) => {
-    return `$${(price / 100).toFixed(2)}`;
+    return `$${price.toFixed(2)}`;
   };
 
   if (loading) {
@@ -135,10 +135,10 @@ export default function Checkout() {
                         </Badge>
                       </div>
 
-                      {item.pricingRule && (
+                      {item.pricingRule?.bulkQuantity && item.pricingRule?.bulkPrice && (
                         <div className="bg-green-50 border border-green-200 rounded p-2 mb-3">
                           <p className="text-sm text-green-800 font-medium">
-                            Special Offer: {item.pricingRule.quantity} for {formatPrice(item.pricingRule.specialPrice)}
+                            Special Offer: {item.pricingRule.bulkQuantity} for {formatPrice(item.pricingRule.bulkPrice)}
                           </p>
                         </div>
                       )}

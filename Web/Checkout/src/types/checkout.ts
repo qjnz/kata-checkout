@@ -2,10 +2,12 @@ export interface CheckoutItem {
   sku: string;
   name: string;
   unitPrice: number;
-  pricingRule?: {
-    quantity: number;
-    specialPrice: number;
-  };
+  pricingRule?: BulkPricing;
+}
+
+export interface BulkPricing {
+  bulkQuantity: number;
+  bulkPrice: number;
 }
 
 export interface CartItem {
