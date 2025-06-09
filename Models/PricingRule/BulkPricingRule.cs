@@ -1,4 +1,4 @@
-namespace Kata.Checkout
+namespace Kata.Checkout.Models.PricingRule
 {
   public class BulkPricingRule: IPricingRule
   {

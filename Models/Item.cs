@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Kata.Checkout.Models.PricingRule;
 
-namespace Kata.Checkout
+namespace Kata.Checkout.Models
 {
   public class Item
   {

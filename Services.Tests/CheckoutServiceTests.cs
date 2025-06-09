@@ -1,10 +1,14 @@
-namespace Kata.Checkout.Tests
+using Kata.Checkout.Models;
+using Kata.Checkout.Models.PricingRule;
+using Kata.Checkout.Services;
+
+namespace Kata.Checkout.Services.Tests
 {
-  public class CheckoutTests
+  public class CheckoutServiceTests
   {
     private decimal GetTotalPrice(string items)
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       foreach (var item in items)
       {
         checkout.Scan(item.ToString());
@@ -15,14 +19,14 @@ namespace Kata.Checkout.Tests
     [Fact]
     public void EmptyCart_ShouldReturnZero()
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       Assert.Equal(0, checkout.GetTotalPrice());
     }
 
     [Fact]
     public void ScanningNullOrEmptyItem_ShouldThrowException()
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       Assert.Throws<ArgumentException>(() => checkout.Scan(null));
       Assert.Throws<ArgumentException>(() => checkout.Scan(""));
       Assert.Throws<ArgumentException>(() => checkout.Scan("   "));
@@ -31,7 +35,7 @@ namespace Kata.Checkout.Tests
     [Fact]
     public void ScanningInvalidItem_ShouldThrowException()
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       Assert.Throws<ArgumentException>(() => checkout.Scan("INVALID"));
     }
 
@@ -110,7 +114,7 @@ namespace Kata.Checkout.Tests
     [Fact]
     public void RepeatedGetTotal_ShouldReturnTheSameValue()
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       checkout.Scan("A");
       checkout.Scan("A");
       checkout.Scan("A");
@@ -121,7 +125,7 @@ namespace Kata.Checkout.Tests
     [Fact]
     public void CustomPricingRules_ShouldWorkCorrectly()
     {
-      var checkout = CheckoutFactory.CreateCustomItems(new[] {
+      var checkout = CheckoutServiceFactory.CreateCustomItems(new[] {
         new Item("A", "Item A", 50),
         new Item("B", "Item B", 30),
         new Item("C", "Item C", 20,  new BulkPricingRule(3, 50)),
@@ -141,7 +145,7 @@ namespace Kata.Checkout.Tests
     [Fact]
     public void ScanningWithSkuCaseInsensitive_ShouldCalculateCorrectly()
     {
-      var checkout = CheckoutFactory.CreateStandardItems();
+      var checkout = CheckoutServiceFactory.CreateStandardItems();
       checkout.Scan("A");
       checkout.Scan("a");
       checkout.Scan("A");

@@ -1,8 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Kata.Checkout;
+using Kata.Checkout.Services;
 using System.Runtime.InteropServices;
 
-var checkout = CheckoutFactory.CreateStandardItems();
+var checkout = CheckoutServiceFactory.CreateStandardItems();
 
 void PlayScanSound()
 {
