@@ -6,7 +6,7 @@ namespace Kata.Checkout
   {
       public string Sku { get; set; }
 
-      public string? Name { get; set; }
+      public string Name { get; set; }
 
       public decimal UnitPrice { get; set; }
 
@@ -14,17 +14,17 @@ namespace Kata.Checkout
 
       public Item(string sku, string name, decimal unitPrice, IPricingRule? pricingRule = null)
       {
-        Sku = sku;
-        Name = name;
-        UnitPrice = unitPrice;
+        Sku = string.IsNullOrWhiteSpace(sku) ? throw new ArgumentNullException(nameof(sku)) : sku;
+        Name =  string.IsNullOrWhiteSpace(name) ? throw new ArgumentNullException(nameof(name)) : name;
+        UnitPrice = unitPrice < 0 ? throw new ArgumentException("Unit price cannot be negative", nameof(unitPrice)) : unitPrice;
         PricingRule = pricingRule ?? new StandardPricingRule();
       }
 
       public decimal CalculatePrice(int quantity)
       {
-        if (quantity <= 0)
+        if (quantity < 0)
         {
-          throw new ArgumentException("Quantity must be greater than 0", nameof(quantity));
+          throw new ArgumentException("Quantity must not be negative", nameof(quantity));
         }
 
         return PricingRule.CalculatePrice(quantity, UnitPrice);
